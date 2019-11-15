@@ -14,3 +14,8 @@
     </tr>
     {% endfor %}
 </table>
+{% for num in top100 %}
+{% if num|divisibleby:"3" %}
+{{ num }}&nbsp;
+{% endif %}
+{% endfor %}
