@@ -23,6 +23,7 @@ class Book(models.Model):
         return self.title
 
 
+
 # >>> from p_library.models import Author, Book
 # >>> for book in Book.objects.all().order_by('price'):
 # ...     print(book.title, book.price)
