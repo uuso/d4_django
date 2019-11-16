@@ -1,3 +1,5 @@
+{% load my_filters %}
+
 Добро пожаловать в {{ title }}.<br>
 Тут собрано {{ books|length }} книг из моей личной коллекции.
 
@@ -14,3 +16,22 @@
     </tr>
     {% endfor %}
 </table>
+<p>
+    <h2>Those nums are divisible by 3:</h2>
+    <h3>By custom filter:</h3>
+        {% for num in top100 %}
+
+        {% if not num|mod_by:"3" %}
+        {{ num }} &nbsp;
+        {% endif %}
+
+        {% endfor %}
+    <h3>By "divisibleby" filter:</h3>
+    {% for num in top100 %}
+
+    {% if num|divisibleby:"3" %}
+    {{ num }} &nbsp;
+    {% endif %}
+
+    {% endfor %}
+</p>
