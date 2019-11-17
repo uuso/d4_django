@@ -1,0 +1,7 @@
+{
+  "name": "django&heroku practice",
+  "description": "sample app deployed to heroku",
+  "image": "heroku/python",
+  "keywords": ["python", "django" ],
+}
+
