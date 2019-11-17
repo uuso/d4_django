@@ -19,6 +19,5 @@ from p_library import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.books_list),
     path('index/', views.index),
 ]

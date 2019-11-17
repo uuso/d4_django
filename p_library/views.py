@@ -1,11 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from p_library.models import Book, Author
 from django.http import HttpResponse
 from django.template import loader
-
-def books_list(request):
-    books = Book.objects.all()
-    return HttpResponse(books)
 
 def index(request):
     template = loader.get_template('index.html')
@@ -15,4 +11,6 @@ def index(request):
         "books": books,
         "top100": list(range(1,101)),
     }
-    return HttpResponse(template.render(biblio_data))
+    return HttpResponse(template.render(biblio_data, request))
+
+
