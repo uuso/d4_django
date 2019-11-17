@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.template import loader
-from p_library.models import Book
+from p_library.models import Book, Publisher
 
 def index(request):
     template = loader.get_template('index.html')
@@ -9,9 +9,23 @@ def index(request):
     biblio_data = {
         "title": "мою библиотеку",
         "books": books,
-        "top100": list(range(1,101)),
+        # "top100": list(range(1,101)),
     }
     return HttpResponse(template.render(biblio_data, request))
+
+
+def publishers(request):
+    template = loader.get_template('list_publishers.html')
+    pubs = Publisher.objects.all()
+    data = {
+        "publishers": [
+            {
+                "name": pub,
+                "books": Book.objects.filter(publisher=pub),
+            } for pub in pubs
+        ]}
+        
+    return HttpResponse(template.render(data))
 
 
 def book_increment(request):
@@ -39,3 +53,4 @@ def book_decrement(request):
             book.save()    
     return redirect('/index/')
         
+
