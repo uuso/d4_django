@@ -12,3 +12,6 @@ python ./manage.py runserver
 http://127.0.0.1:8000/index - default tableview
 
 http://127.0.0.1:8000/redactions/ - publishers bootstrap view
+
+/admin:
+one:one
