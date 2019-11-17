@@ -3,11 +3,11 @@ Some practice with django framework
 
 Created a few models, simple views and a pair of templates.
 
-Usage:
-
+### Usage:
+```
 python ./manage.py runserver
-
-URLs:
+```
+### URLs:
 
 http://127.0.0.1:8000/index - default tableview
 
