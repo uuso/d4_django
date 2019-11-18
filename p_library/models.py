@@ -27,11 +27,12 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     copy_count = models.SmallIntegerField(default=1)
     price = models.DecimalField(decimal_places=2, max_digits=10)
-    publisher = models.ForeignKey(Publisher, null = True, on_delete=models.SET_NULL)
+    publisher = models.ForeignKey(Publisher,
+                                  null=True,
+                                  on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title
-
 
 
 # >>> from p_library.models import Author, Book
@@ -46,7 +47,6 @@ class Book(models.Model):
 # {'price__max': Decimal('2284.66000000000')}
 #           ---
 
-
 # from django.db.models import Count
 # gte2Authors = Author.objects.annotate(num_books=Count('book')).filter(num_books__gte=2)
 # >>> for gA in gte2Authors:
@@ -55,10 +55,9 @@ class Book(models.Model):
 # >>> total = 0
 # >>> for book in books:
 # ...     total += book.price*book.copy_count
-# ... 
+# ...
 # >>> total
 # Decimal('27169.59')
-
 
 # >>> foreignAuthors = Author.objects.exclude(country="RU")
 # >>> for book in foreignBooks:
@@ -71,17 +70,15 @@ class Book(models.Model):
 # >>> total
 # Decimal('18792.80')
 
-
 # >>> push = Author.objects.get(full_name__contains="Пушкин")
 # >>> push.full_name
 # 'Пушкин Александр Сергеевич'
 # >>> total = 0
 # >>> for book in Book.objects.filter(author=push):
 # ...     total += book.price * book.copy_count
-# ... 
+# ...
 # >>> total
 # Decimal('12666.99')
-
 
 # >>> Book.objects.filter(author__full_name__contains="Adams").aggregate(Sum('price'))
 # {'price__sum': Decimal('4136.69000000000')}

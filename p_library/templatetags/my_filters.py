@@ -3,6 +3,7 @@ from django import template
 
 register = template.Library()
 
+
 # @register.filter(name="mymod")
 @register.filter
 def mod_by(value, arg=3):

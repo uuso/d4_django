@@ -1,7 +1,6 @@
 from django.contrib import admin
 from p_library.models import Book, Author, Publisher
 
-
 # @admin.register(Author)
 # class AuthorAdmin(admin.ModelAdmin):
 #     pass
@@ -13,7 +12,7 @@ admin.site.register(Publisher)
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    
+
     # Если в классе Author определён __str__, то достаточно следующей строки:
     # list_display = ('title', 'author')
 
@@ -21,8 +20,9 @@ class BookAdmin(admin.ModelAdmin):
     @staticmethod
     def author_full_name(obj):
         return obj.author.full_name
-        
+
     list_display = ('title', 'author_full_name', "publisher")
-    
+
     # Укажем поля для отображения (неуказанные нельзя будет редактировать из админки)
-    fields = ('ISBN', 'title', 'description', 'year_release', 'author', 'price', 'publisher')
+    fields = ('ISBN', 'title', 'description', 'year_release', 'author',
+              'price', 'publisher')
