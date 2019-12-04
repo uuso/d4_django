@@ -1,4 +1,3 @@
 release: python manage.py migrate
-release: echo "MIGRATED!\n"
-release: python manage.py loaddata data1.xml
+release: python manage.py loaddata data.xml
 web: python manage.py runserver 0.0.0.0:$PORT
