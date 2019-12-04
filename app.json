@@ -1,7 +1,9 @@
 {
-  "name": "django&heroku practice",
-  "description": "sample app deployed to heroku",
+  "name": "Personal library",
+  "description": "Personal library on Heroku",
   "image": "heroku/python",
-  "keywords": ["python", "django" ],
+  "keywords": [
+    "python",
+    "django"
+  ]
 }
-

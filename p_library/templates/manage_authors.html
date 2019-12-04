@@ -8,6 +8,7 @@
 
 <body>
     <form method="post">
+        {{ author_formset.management_form }}
         {% csrf_token %}
         {% for form in author_formset %}
         {{ form.as_ul }}
