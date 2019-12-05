@@ -17,6 +17,9 @@ class BookForm(forms.ModelForm):
 
 
 class FriendForm(forms.ModelForm):
+    full_name = forms.CharField(widget=forms.TextInput)
+    city = forms.CharField(widget=forms.TextInput)
+
     class Meta:
         model = Friend
         fields = '__all__'

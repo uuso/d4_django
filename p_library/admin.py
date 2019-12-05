@@ -1,5 +1,5 @@
 from django.contrib import admin
-from p_library.models import Book, Author, Publisher, Friends, Lease
+from p_library.models import Book, Author, Publisher, Friend, Lease
 
 # @admin.register(Author)
 # class AuthorAdmin(admin.ModelAdmin):
@@ -8,7 +8,7 @@ from p_library.models import Book, Author, Publisher, Friends, Lease
 # Альтернативная запись, т.к. в предыдущем виде внутри класса ничего не выполняется (pass)
 admin.site.register(Author)
 admin.site.register(Publisher)
-admin.site.register(Friends)
+admin.site.register(Friend)
 admin.site.register(Lease)
 
 
