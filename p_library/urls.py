@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import AuthorEdit, AuthorList, author_create_many, books_authors_create_many
+from .views import AuthorEdit, AuthorList, author_create_many, books_authors_create_many, FriendList, FriendCreate
 
 app_name = 'p_library'
 
@@ -11,4 +11,6 @@ urlpatterns = [
     path('author_book/create_many',
          books_authors_create_many,
          name='books_authors_create_many'),
+    path('friends', FriendList.as_view(), name='friends_list'),
+    path('friends/create', FriendCreate.as_view(), name='friend_create'),
 ]

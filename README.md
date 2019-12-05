@@ -13,5 +13,7 @@ http://127.0.0.1:8000/index - default tableview
 
 http://127.0.0.1:8000/redactions/ - publishers bootstrap view
 
+https://pure-castle-93266.herokuapp.com/authors - heroku deploy
+
 /admin:
 one:one

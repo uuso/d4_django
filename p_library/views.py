@@ -5,8 +5,8 @@ from django.http.response import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.template import loader
 from django.views.generic import CreateView, ListView
-from p_library.models import Book, Author, Publisher
-from p_library.forms import AuthorForm, BookForm
+from p_library.models import Book, Author, Publisher, Friend, Lease
+from p_library.forms import AuthorForm, BookForm, FriendForm
 
 
 class AuthorEdit(CreateView):
@@ -19,6 +19,18 @@ class AuthorEdit(CreateView):
 class AuthorList(ListView):
     model = Author
     template_name = 'authors_list.html'
+
+
+class FriendList(ListView):
+    model = Friend
+    template_name = 'friends_list.html'
+
+
+class FriendCreate(CreateView):
+    model = Friend
+    form_class = FriendForm
+    success_url = reverse_lazy('p_library:friends_list')
+    template_name = 'friends_create.html'
 
 
 def index(request):

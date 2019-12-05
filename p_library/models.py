@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 
 class Author(models.Model):
@@ -8,6 +9,14 @@ class Author(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class Friend(models.Model):
+    full_name = models.TextField()
+    city = models.TextField()
+
+    def __str__(self):
+        return "{} ({})".format(self.full_name, self.city)
 
 
 class Publisher(models.Model):
@@ -30,9 +39,20 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher,
                                   null=True,
                                   on_delete=models.SET_NULL)
+    leasing = models.ManyToManyField(Friend,
+                                     through="Lease",
+                                     through_fields=("book", "friend"))
 
     def __str__(self):
         return self.title
+
+
+class Lease(models.Model):
+    friend = models.ForeignKey(Friend, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    date_lease = models.DateField(auto_now_add=True)
+    date_back = models.DateField(default=datetime.datetime.now().date() +
+                                 datetime.timedelta(days=14))
 
 
 # >>> from p_library.models import Author, Book
