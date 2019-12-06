@@ -81,7 +81,7 @@ DATABASES = {
     } if os.environ.get('LOCAL_DB') else dj_database_url.config(
         default=os.environ.get('DATABASE_URL'))
 }
-print("ENV_VAR LOCAL_DB == " + os.environ.get('LOCAL_DB'))
+print("ENV_VAR LOCAL_DB == '{}'".format(os.environ.get('LOCAL_DB')))
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
