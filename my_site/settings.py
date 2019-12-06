@@ -72,16 +72,16 @@ WSGI_APPLICATION = 'my_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-LOCAL_DB = False
+# LOCAL_DB = False
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    } if LOCAL_DB else dj_database_url.config(
+    } if os.environ.get('LOCAL_DB') else dj_database_url.config(
         default=os.environ.get('DATABASE_URL'))
 }
-
+print("ENV_VAR LOCAL_DB == " + os.environ.get('LOCAL_DB'))
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
