@@ -1,0 +1,37 @@
+<a href="/index/">&lt;&lt; Назад на главную</a>
+<table border="1">
+    <tr>
+        <th>#</th>
+        <th>Дата выдачи</th>
+        <th>Книга</th>
+        <th>Кому выдана</th>
+        <th>Вернёт</th>
+        <th>Возврат</th>
+    </tr>
+    {% for lease in leases %}
+    <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ lease.date_lease }}</td>
+    <td>{{ lease.book }}</td>
+    <td>{{ lease.friend }}</td>
+    <td>{{ lease.date_back }}</td>
+    <td>
+        <form style="margin-bottom: 0;" action="/index/book_return/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{lease.id}}">
+            <input style="width: 100%;" type="submit" value="Подтвердить">
+        </form>
+    </td>
+    </tr>
+    {% endfor %}
+</table>
+<p>Выдать книгу товарищу:</p>
+<form action="/index/lease" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <select name="friend_id">   
+    {% for friend in friends %}
+        <option value="{{ friend.id }}">{{ friend }}</option>
+    {% endfor %}
+    <input type="hidden" name="book_id" value="{{book_id}}">
+   <input type="submit" value="Выдать на 2 недели">
+</form>

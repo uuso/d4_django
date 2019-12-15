@@ -1,5 +1,5 @@
 from django import forms
-from p_library.models import Author, Book, Friend
+from p_library.models import Author, Book, Friend, Publisher
 
 
 class AuthorForm(forms.ModelForm):
@@ -13,8 +13,16 @@ class AuthorForm(forms.ModelForm):
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['ISBN', 'title', 'description', 'year_release', 'author', 'in_stock', 'price', 'publisher']
 
+
+class PublisherForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput)
+    city = forms.CharField(widget=forms.TextInput)
+    class Meta:
+        model = Publisher
+        fields = '__all__'
 
 class FriendForm(forms.ModelForm):
     full_name = forms.CharField(widget=forms.TextInput)

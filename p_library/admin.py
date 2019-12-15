@@ -11,11 +11,11 @@ admin.site.register(Publisher)
 
 @admin.register(Friend)
 class FriendAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'city', 'is_library')
+    list_display = ('full_name', 'city')
 
 @admin.register(Lease)
 class LeaseAdmin(admin.ModelAdmin):
-    list_display = ('friend', 'book', 'date_lease', 'date_back')
+    list_display = ('id', 'friend', 'book', 'date_lease', 'date_back')
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -27,14 +27,8 @@ class BookAdmin(admin.ModelAdmin):
     @staticmethod
     def author_full_name(obj):
         return obj.author.full_name
-    @staticmethod
-    def total_count(obj):
-        return "Not calculated yet"
-    @staticmethod
-    def ready_for_lease(obj):
-        return "Not calculated yet"
 
-    list_display = ('title', 'author_full_name', "ready_for_lease", "total_count")
+    list_display = ('title', 'author_full_name')
 
     # Укажем поля для отображения (неуказанные нельзя будет редактировать из админки)
     fields = ('ISBN', 'title', 'description', 'year_release', 'author',
