@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 # параметр, определяющий, где в файловой системе будут храниться статические файлы,
 # собранные при помощи команды collectstatic из разных приложений
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_URL = '/media/' # путь для отображения в URL
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # фактическое расположение
