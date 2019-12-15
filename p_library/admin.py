@@ -34,4 +34,4 @@ class BookAdmin(admin.ModelAdmin):
     form = BookForm
     # Укажем поля для отображения (неуказанные нельзя будет редактировать из админки)
     fields = ('ISBN', 'title', 'description', 'year_release', 'author',
-              'price', 'publisher')
+              'price', 'publisher', 'image')

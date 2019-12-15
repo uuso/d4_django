@@ -19,7 +19,7 @@
     {% for book in books %}
     <tr>
         <td>{{ forloop.counter }}</td>
-        <td>{{ book.title }}</td>
+        <td><a href="{{book.image.url}}">{{ book.title }}</a></td>
         <td>{{ book.ISBN }}</td>
         <!-- <td class="description">{{ book.description }}</td> -->
         <td>{{ book.year_release }}</td>

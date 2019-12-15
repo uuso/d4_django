@@ -14,7 +14,7 @@ class Author(models.Model):
 class Friend(models.Model):
     full_name = models.TextField()
     city = models.TextField()
-    photo = models.ImageField(upload_to="images/", default="images/no-image.jpg")
+    photo = models.ImageField(upload_to="images/friends/", default="images/no-image.jpg")
 
     def __str__(self):
         return "{} ({})".format(self.full_name, self.city)
@@ -37,6 +37,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     in_stock = models.PositiveSmallIntegerField(default=1)
     price = models.DecimalField(decimal_places=2, max_digits=10)
+    image = models.ImageField(upload_to="images/books/", default="images/no-image.jpg")
     publisher = models.ForeignKey(Publisher,
                                   null=True,
                                   on_delete=models.SET_NULL)
