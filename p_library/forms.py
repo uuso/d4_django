@@ -11,6 +11,7 @@ class AuthorForm(forms.ModelForm):
 
 
 class BookForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={'size':'82'}))
     class Meta:
         model = Book
         # fields = '__all__'

@@ -13,7 +13,7 @@
     <td>{{ forloop.counter }}</td>
     <td>{{ lease.date_lease }}</td>
     <td>{{ lease.book }}</td>
-    <td>{{ lease.friend }}</td>
+    <td><a href="{{ lease.friend.photo.url }}">{{ lease.friend }}</a></td>
     <td>{{ lease.date_back }}</td>
     <td>
         <form style="margin-bottom: 0;" action="/index/book_return/" method="POST" enctype="multipart/form-data">

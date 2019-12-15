@@ -14,6 +14,7 @@ class Author(models.Model):
 class Friend(models.Model):
     full_name = models.TextField()
     city = models.TextField()
+    photo = models.ImageField(upload_to="images/", default="images/no-image.jpg")
 
     def __str__(self):
         return "{} ({})".format(self.full_name, self.city)

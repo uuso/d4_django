@@ -1,5 +1,6 @@
 from django.contrib import admin
 from p_library.models import Book, Author, Publisher, Friend, Lease
+from .forms import FriendForm, BookForm
 
 # @admin.register(Author)
 # class AuthorAdmin(admin.ModelAdmin):
@@ -12,6 +13,7 @@ admin.site.register(Publisher)
 @admin.register(Friend)
 class FriendAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'city')
+    form = FriendForm
 
 @admin.register(Lease)
 class LeaseAdmin(admin.ModelAdmin):
@@ -29,7 +31,7 @@ class BookAdmin(admin.ModelAdmin):
         return obj.author.full_name
 
     list_display = ('title', 'author_full_name')
-
+    form = BookForm
     # Укажем поля для отображения (неуказанные нельзя будет редактировать из админки)
     fields = ('ISBN', 'title', 'description', 'year_release', 'author',
               'price', 'publisher')
