@@ -10,7 +10,8 @@ from p_library.forms import AuthorForm, BookForm, FriendForm, PublisherForm
 class AuthorEdit(CreateView):
     model = Author
     form_class = AuthorForm
-    success_url = reverse_lazy('p_library:author_list')
+    # success_url = reverse_lazy('p_library:author_list')
+    success_url = '/index/'
     template_name = 'authors_edit.html'
 
 
@@ -19,6 +20,7 @@ class BookCreate(CreateView):
     form_class = BookForm
     success_url = '/index/'
     template_name = 'books_create.html'
+
 
 class PublisherCreate(CreateView):
     model = Publisher
@@ -30,7 +32,8 @@ class PublisherCreate(CreateView):
 class FriendCreate(CreateView):
     model = Friend
     form_class = FriendForm
-    success_url = reverse_lazy('p_library:friends_list')
+    # success_url = reverse_lazy('p_library:friends_list')
+    success_url = '/index/'
     template_name = 'friends_create.html'
 
 
@@ -74,6 +77,7 @@ def book_return(request):
             lease.delete()
     return redirect('/index/')
 
+
 def index(request):
     template = loader.get_template('index.html')
 
@@ -88,6 +92,7 @@ def index(request):
         "books": books,
     }
     return HttpResponse(template.render(biblio_data, request))
+
 
 def make_russian(num):
     if 10 < num % 100 < 20:
@@ -107,6 +112,7 @@ def make_russian(num):
         0: " книг",
     }[num%10]
 
+
 def book_increment(request):
     if request.method == 'POST':
         book_id = request.POST['id']
@@ -116,7 +122,7 @@ def book_increment(request):
                 return redirect('/index/')
             book.in_stock += 1
             book.save()
-    return redirect('/index/')
+    return redirect('/index/#book-{}'.format(book_id))
 
 
 def book_decrement(request):
@@ -129,4 +135,4 @@ def book_decrement(request):
             if book.in_stock > 0:
                 book.in_stock -= 1
             book.save()
-    return redirect('/index/')
+    return redirect('/index/#book-{}'.format(book_id))

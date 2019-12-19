@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Форма создания и редактирования Авторов</title>
-</head>
+{% block page_title %}Форма создания и редактирования Авторов{% endblock%}
 
-<body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Сохранить">
-    </form>
-</body>
-
-</html>
+{% block page_body %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Сохранить">
+</form>
+{% endblock %}

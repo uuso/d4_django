@@ -123,9 +123,12 @@ USE_TZ = True
 # параметр, определяющий то, как будет выглядеть url для доступа к статическим файлам
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 # параметр, определяющий, где в файловой системе будут храниться статические файлы,
 # собранные при помощи команды collectstatic из разных приложений
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-MEDIA_URL = '/media/' # путь для отображения в URL
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # фактическое расположение
+MEDIA_URL = '/media/'  # путь для отображения в URL
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')  # фактическое расположение

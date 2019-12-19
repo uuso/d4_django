@@ -1,56 +1,98 @@
+{% extends 'base.html' %}
 {% load my_filters %}
 
-Добро пожаловать в {{ title }}.<br>
-Тут собрано {{ books_verbal_count }} из моей личной коллекции.
+{% block page_title %}Список книг в библиотеке{% endblock%}
 
-<table border="1">
-    <tr>
-        <th>#</th>
-        <th>Наименование</th>
-        <th>ISBN</th>
-        <!-- <th>Описание</th> -->
-        <th>Год</th>
-        <th>Автор</th>
-        <th>Страна</th>
-        <th>В запасе</th>
-        <th>Выдано</th>
-        <th>Действия</th>
-    </tr>
+{% block page_body %}
+
+<div class="container">
+    <div class="row my-4 text-center">
+        <div class="col">
+            <h1>
+                Добро пожаловать в {{ title }}<br>
+            </h1>
+            <div class="text-secondary">Тут собрано {{ books_verbal_count }} из моей личной коллекции.</div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col d-flex justify-content-around">
+            <a class="btn btn-outline-dark" href="/friends/create">Зарегистрировать друга</a>
+            <a class="btn btn-outline-dark" href="/authors/create">Зарегистрировать автора</a>
+            <a class="btn btn-outline-dark" href="/publishers/create">Зарегистрировать издательство</a>
+            <a class="btn btn-outline-dark" href="/books/create">Зарегистрировать книгу</a>
+        </div>
+    </div>
+
     {% for book in books %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td><a href="{{book.image.url}}">{{ book.title }}</a></td>
-        <td>{{ book.ISBN }}</td>
-        <!-- <td class="description">{{ book.description }}</td> -->
-        <td>{{ book.year_release }}</td>
-        <td>{{ book.author.full_name }}</td>
-        <td>{{ book.author.country }}</td>
-        <td>{{ book.in_stock }}</td>
-        <td>{{ book.in_lease }}</td>
-        <td>
-            <form style="margin-bottom: 0;" action="/index/book_increment/" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" name="id" value="{{book.id}}">
-                <input style="width: 100%;" type="submit" value="Увеличить запас">
-            </form>
-            <form style="margin-bottom: 0;" action="/index/book_decrement/" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" name="id" value="{{book.id}}">
-                <input style="width: 100%;" type="submit" value="Уменьшить запас">
-            </form>
-            <form style="margin-bottom: 0;" action="/index/book_leasing/" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{book.id}}">
-                <input style="width: 100%;" type="submit" value="Аренда">
-            </form>
+    <div class="row mb-5">
+        <div class="col-3">
+            <img class="book-poster" src="{{book.image.url}}" alt="poster of {{ book.title }}">
+        </div>
+        <div class="col">
+            <div class="row mb-3">
+                <div class="col">
+                    <div id="book-{{book.id}}" class="h3 book-title">{{ book.title }} | {{ book.author.full_name }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-7">
+                    <div class="book-params text-muted">
+                        <ul>
+                            <li class="d-flex justify-content-between">
+                                <span class="param-name">ISBN</span><span class="param-filler"></span><span
+                                    class="param-value">{{ book.ISBN }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <span class="param-name">Год выпуска</span><span class="param-filler"></span><span
+                                    class="param-value">{{ book.year_release }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <span class="param-name">Авторы</span><span class="param-filler"></span><span
+                                    class="param-value">{{ book.author.full_name }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <span class="param-name">Страна</span><span class="param-filler"></span><span
+                                    class="param-value">{{ book.author.country }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <span class="param-name">В наличии</span><span class="param-filler"></span><span
+                                    class="param-value">{{ book.in_stock }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between">
+                                <span class="param-name">Выдано</span><span class="param-filler"></span><span
+                                    class="param-value">{{ book.in_lease }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col book-actions">
+                    <form action="/index/book_increment/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <input style="width: 100%;" type="submit" value="Увеличить запас">
+                    </form>
+                    <form action="/index/book_decrement/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <input style="width: 100%;" type="submit" value="Уменьшить запас">
+                    </form>
+                    <form action="/index/book_leasing/" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <input style="width: 100%;" type="submit" value="Аренда">
+                    </form>
+                </div>
+            </div>
 
-        </td>
-    </tr>
+            <div class="row">
+                <div class="col">
+                    <div class="book-description">{{ book.description }}</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
     {% endfor %}
-</table>
-<h2>Действия в библиотеке:</h2>
-<ol>
-    <li><a href="/friends/create">Зарегистрировать друга для возможностей аренды книг</a></li>    
-    <li><a href="/authors/create">Зарегистрировать автора</a></li>
-    <li><a href="/publishers/create">Зарегистрировать издательство</a></li>
-    <li><a href="/books/create">Зарегистрировать книгу</a></li>
-</ol>
+</div>
+{% endblock %}

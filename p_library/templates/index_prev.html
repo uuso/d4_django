@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load my_filters %}
+
+{% block page_title %}Список книг в библиотеке{% endblock%}
+
+{% block page_body %}
+Добро пожаловать в {{ title }}.<br>
+Тут собрано {{ books_verbal_count }} из моей личной коллекции.
+
+<table border="1">
+    <tr>
+        <th>#</th>
+        <th class="text-danger">Наименование</th>
+        <th>ISBN</th>
+        <!-- <th>Описание</th> -->
+        <th>Год</th>
+        <th>Автор</th>
+        <th>Страна</th>
+        <th>В запасе</th>
+        <th>Выдано</th>
+        <th>Действия</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td><a href="{{book.image.url}}">{{ book.title }}</a></td>
+        <td>{{ book.ISBN }}</td>
+        <!-- <td class="description">{{ book.description }}</td> -->
+        <td>{{ book.year_release }}</td>
+        <td>{{ book.author.full_name }}</td>
+        <td>{{ book.author.country }}</td>
+        <td>{{ book.in_stock }}</td>
+        <td>{{ book.in_lease }}</td>
+        <td>
+            <form style="margin-bottom: 0;" action="/index/book_increment/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{book.id}}">
+                <input style="width: 100%;" type="submit" value="Увеличить запас">
+            </form>
+            <form style="margin-bottom: 0;" action="/index/book_decrement/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{book.id}}">
+                <input style="width: 100%;" type="submit" value="Уменьшить запас">
+            </form>
+            <form style="margin-bottom: 0;" action="/index/book_leasing/" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{book.id}}">
+                <input style="width: 100%;" type="submit" value="Аренда">
+            </form>
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<h2>Действия в библиотеке:</h2>
+<ol>
+    <li><a href="/friends/create">Зарегистрировать друга для возможностей аренды книг</a></li>
+    <li><a href="/authors/create">Зарегистрировать автора</a></li>
+    <li><a href="/publishers/create">Зарегистрировать издательство</a></li>
+    <li><a href="/books/create">Зарегистрировать книгу</a></li>
+</ol>
+{% endblock %}
