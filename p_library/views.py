@@ -82,7 +82,7 @@ def index(request):
     template = loader.get_template('index.html')
 
     # не уверен в корректности prefetch_related
-    books = Book.objects.all().prefetch_related('leasing')
+    books = Book.objects.order_by('id').prefetch_related('leasing')
 
     for book in books:
         book.in_lease = len(Lease.objects.filter(book=book))
